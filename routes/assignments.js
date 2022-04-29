@@ -1,6 +1,22 @@
 let Assignment = require('../model/assignment');
 let Matiere = require('../model/matiere')
 
+// noter un assignment
+function putAssignmentWithNote(req, res) {
+    let assignment = null;
+    assignment = new Assignment(req.body);
+    assignment.rendu = true;
+    Assignment.findByIdAndUpdate(assignment._id, assignment, {new: true}, (err, assignment) => {
+        if (err) {
+            console.log(err);
+            res.send(err)
+        } else {
+          res.json({message: 'updated note'})
+        }
+
+      // console.log('updated ', assignment)
+    });
+}
 
 // Ajout assignment pour chaque eleve
 function postAssignmentsForEachStudent(req, res) {
@@ -85,11 +101,10 @@ function postAssignment(req, res){
 
 // Update d'un assignment (PUT)
 function updateAssignment(req, res) {
-    console.log("UPDATE recu assignment : ");
-    console.log(req.body);
-    Assignment.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, assignment) => {
+    let assignment = null;
+    assignment = new Assignment(req.body);
+    Assignment.findByIdAndUpdate(assignment._id, assignment, {new: true}, (err, assignment) => {
         if (err) {
-            console.log(err);
             res.send(err)
         } else {
           res.json({message: 'updated'})
@@ -113,4 +128,13 @@ function deleteAssignment(req, res) {
 
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment, getAssignementsComplete, postAssignmentsForEachStudent };
+module.exports = { 
+    getAssignments, 
+    postAssignment, 
+    getAssignment, 
+    updateAssignment, 
+    deleteAssignment, 
+    getAssignementsComplete, 
+    postAssignmentsForEachStudent,
+    putAssignmentWithNote
+};

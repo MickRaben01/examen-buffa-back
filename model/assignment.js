@@ -6,7 +6,15 @@ let Schema = mongoose.Schema;
 let AssignmentSchema = Schema({
     dateDeRendu: Date,
     titre: String,
-    rendu: Boolean,
+    rendu: {
+        type: Boolean, 
+        default: false
+    },
+    note: {
+      type: Number,
+      default: -1
+    },
+    remarques:String,
     eleveRef: {type: Schema.Types.ObjectId, ref: users},
     matiereRef: {type: Schema.Types.ObjectId, ref: matiere},
 });

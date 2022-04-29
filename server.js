@@ -44,6 +44,15 @@ let port = process.env.PORT || 8010;
 // les routes
 const prefix = '/api';
 
+app.route(prefix + '/deleteAssignment/:id')
+  .delete(assignment.deleteAssignment);
+
+app.route(prefix + '/editAssignment')
+  .put(assignment.updateAssignment);
+
+app.route(prefix + '/noteAssignment')
+  .put(assignment.putAssignmentWithNote);
+
 app.route(prefix + '/matieresComplete')
   .get(matiere.getMatieresComplete);
 
